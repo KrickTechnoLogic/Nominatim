@@ -31,3 +31,5 @@ data/wiki_specialphrases.sql
 data/osmosischange.osc
 
 .vagrant
+
+.idea
