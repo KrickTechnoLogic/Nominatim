@@ -826,7 +826,21 @@
             $aPhrases = array_values($aPhrases);
 
             $sSQL = 'select word_id,word_token, word, class, type, country_code, operator, search_name_count';
-            $sSQL .= " from word where word_token like '".$aPhrases[0]["string"]."%'";
+            $i = 0;
+            $whereClaus = "";
+            foreach ($aPhrases as $aPhrase)
+            {
+                if($i==0)
+                {
+                    $whereClaus.= "word_token like '".$aPhrase["string"]."%'";
+                }
+                else{
+                    $whereClaus.= " OR word_token like '".$aPhrase["string"]."%'";
+                }
+
+                $i++;
+            }
+            $sSQL .= " from word where ".$whereClaus;
 
             $aDatabaseWords = $this->oDB->getAll($sSQL);
 
